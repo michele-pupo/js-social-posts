@@ -107,6 +107,17 @@ function handleLikeButtonClick(event) {
   }
 }
 
+// funzione per formattare la data nel formato italiano (gg/mm/aaaa)
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    // i mesi partono da 0, quindi aggiungiamo 1
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+
 // creiamo un elemento html dove appendere ogni post
 const postsContainer = document.getElementById("posts");
 
@@ -114,6 +125,9 @@ const postsContainer = document.getElementById("posts");
 posts.forEach(post => {
   const postElement = document.createElement("div");
   postElement.classList.add("author");
+
+  // formattiamo la data
+  const formattedDate = formatDate(post.created);
 
   const content = `
 
@@ -127,7 +141,7 @@ posts.forEach(post => {
                     </div>
                     <div id="text-author" class="col-11 ms-3">
                         <h2 class="fw-bold fs-5 mb-0">${post.author.name}</h2>
-                        <h3 class="fs-6">${post.created}</h3>
+                        <h3 class="fs-6">${formattedDate}</h3>
                     </div>
                 </div>
             </div>
