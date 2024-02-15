@@ -148,13 +148,13 @@ posts.forEach(post => {
   const content = `
 
     <div class="container-fluid d-flex flex-column align-items-center">
-        <div id="post" class="col-8 bg-white p-3 mb-5">
+        <div id="post" class="col-8 bg-white p-3 mb-4 pb-4">
             <div id="author" class="d-flex">
                 <div class="d-flex align-items-center">
                     <div id="img-author" class="col-2">
                         <img src="${post.author.image}" alt="">
                     </div>
-                    <div id="text-author" class="col-11 ms-3">
+                    <div id="text-author" class="col-11 ms-4">
                         <h2 class="fw-bold fs-5 mb-0">${post.author.name}</h2>
                         <h3 class="fs-6">${formattedDate}</h3>
                     </div>
@@ -167,9 +167,9 @@ posts.forEach(post => {
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <div id="liks" class="d-flex align-items-center col-8 justify-content-between mt-3">
+                <div id="liks" class="d-flex align-items-center col-8 justify-content-between mt-4">
                     <button class="like-button" data-post-id="${post.id}" href="#"><i class="fa-regular fa-thumbs-up"></i><span class="fw-bolder"> Mi Piace</span></button>
-                    <h6>Piace a <span class="fw-bold">${post.likes}</span> persone</h6>
+                    <h6 class="mt-2">Piace a <span class="fw-bold">${post.likes}</span> persone</h6>
                 </div>
             </div>
         </div>
