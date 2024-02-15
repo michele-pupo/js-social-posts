@@ -87,31 +87,46 @@ const posts = [
 const likedPosts = [];
 // console.log(likedPosts);
 
-// Funzione per gestire il clic del pulsante "Mi Piace"
+// funzione per gestire il clic del pulsante "mi piace"
 function handleLikeButtonClick(event) {
-  const postId = event.currentTarget.getAttribute("data-post-id");
+    const postId = event.currentTarget.getAttribute("data-post-id");
+  
+    // verifichiamo se al post è già stato messo il "mi piace"
+    if (!likedPosts.includes(postId)) {
+  
+      // aggiungiamo l'id del post agli id dei post "mi piace"
+      likedPosts.push(postId); 
+      const likesCountElement = event.currentTarget.parentNode.querySelector(".fw-bold");
+      const likesCount = parseInt(likesCountElement.textContent);
+  
+      // incrementiamo il contatore dei like
+      likesCountElement.textContent = likesCount + 1; 
+  
+      // cambiamo lo stile del pulsante per indicare che è stato cliccato il "mi piace"
+      event.currentTarget.classList.add("liked");
 
-  // Verifichiamo se al post è già stato messo il "mi piace"
-  if (!likedPosts.includes(postId)) {
+    } else {
 
-    // Aggiungiamo l'ID del post agli ID dei post "mi piace"
-    likedPosts.push(postId); 
-    const likesCountElement = event.currentTarget.parentNode.querySelector(".fw-bold");
-    const likesCount = parseInt(likesCountElement.textContent);
+      // se il post è già stato cliccato, rimuoviamo l'id dalla lista e decrementiamo il contatore
+      const index = likedPosts.indexOf(postId);
+      likedPosts.splice(index, 1);
+      const likesCountElement = event.currentTarget.parentNode.querySelector(".fw-bold");
+      const likesCount = parseInt(likesCountElement.textContent);
 
-    // Incrementiamo il contatore dei like
-    likesCountElement.textContent = likesCount + 1; 
+      // decrementiamo il contatore dei like
+      likesCountElement.textContent = likesCount - 1; 
 
-    // Cambiamo lo stile del pulsante per indicare che è stato cliccato il "mi piace"
-    event.currentTarget.classList.add("liked");
+      // rimuoviamo lo stile del pulsante per indicare che è stato cliccato il "mi piace"
+      event.currentTarget.classList.remove("liked");
+    }
   }
-}
+
 
 // funzione per formattare la data nel formato italiano (gg/mm/aaaa)
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
-    // i mesi partono da 0, quindi aggiungiamo 1
+    // poichè i mesi partono da 0, aggiungiamo 1
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
@@ -129,10 +144,10 @@ posts.forEach(post => {
   // formattiamo la data
   const formattedDate = formatDate(post.created);
 
+
   const content = `
 
     <div class="container-fluid d-flex flex-column align-items-center">
-  
         <div id="post" class="col-8 bg-white p-3 mb-5">
             <div id="author" class="d-flex">
                 <div class="d-flex align-items-center">
@@ -159,13 +174,13 @@ posts.forEach(post => {
             </div>
         </div>
     </div>
-    
   `;
 
     postElement.innerHTML = content;
     postsContainer.append(postElement);
 
-   // Aggiungiamo un gestore di eventi al pulsante "Mi Piace" di ciascun post
+   
+   // aggiungiamo un gestore di eventi al pulsante "mi piacee" di ciascun post
    const likeButton = postElement.querySelector(".like-button");
    likeButton.addEventListener("click", handleLikeButtonClick);
 });
