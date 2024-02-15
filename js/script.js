@@ -15,7 +15,8 @@ Milestone 1 - Creiamo il nostro array di oggetti che rappresentano ciascun post.
 Milestone 2 - Prendendo come riferimento il layout di esempio presente nell'html, 
               stampiamo i post del nostro feed.
 Milestone 3 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e 
-              incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+              incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post 
+              ai quali abbiamo messo il like.
 BONUS
  - Formattare le date in formato italiano (gg/mm/aaaa)
  - Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene 
@@ -82,13 +83,36 @@ const posts = [
   }
 ];
 
+// inizializziamo un array vuoto per tenere traccia dei post con like
+const likedPosts = [];
+// console.log(likedPosts);
+
+// Funzione per gestire il clic del pulsante "Mi Piace"
+function handleLikeButtonClick(event) {
+  const postId = event.currentTarget.getAttribute("data-post-id");
+
+  // Verifichiamo se al post è già stato messo il "mi piace"
+  if (!likedPosts.includes(postId)) {
+
+    // Aggiungiamo l'ID del post agli ID dei post "mi piace"
+    likedPosts.push(postId); 
+    const likesCountElement = event.currentTarget.parentNode.querySelector(".fw-bold");
+    const likesCount = parseInt(likesCountElement.textContent);
+
+    // Incrementiamo il contatore dei like
+    likesCountElement.textContent = likesCount + 1; 
+
+    // Cambiamo lo stile del pulsante per indicare che è stato cliccato il "mi piace"
+    event.currentTarget.classList.add("liked");
+  }
+}
 
 // creiamo un elemento html dove appendere ogni post
 const postsContainer = document.getElementById("posts");
 
 // facciamo un ciclo "forEach" per ciclare ogni elemento dell'array
 posts.forEach(post => {
-  const postElement = document.createElement("post");
+  const postElement = document.createElement("div");
   postElement.classList.add("author");
 
   const content = `
@@ -115,7 +139,7 @@ posts.forEach(post => {
             </div>
             <div class="d-flex justify-content-center">
                 <div id="liks" class="d-flex align-items-center col-8 justify-content-between mt-3">
-                    <h6><i class="fa-regular fa-thumbs-up"></i> Mi Piace</h6>
+                    <button class="like-button" data-post-id="${post.id}" href="#"><i class="fa-regular fa-thumbs-up"></i><span class="fw-bolder"> Mi Piace</span></button>
                     <h6>Piace a <span class="fw-bold">${post.likes}</span> persone</h6>
                 </div>
             </div>
@@ -126,4 +150,12 @@ posts.forEach(post => {
 
     postElement.innerHTML = content;
     postsContainer.append(postElement);
-})
+
+   // Aggiungiamo un gestore di eventi al pulsante "Mi Piace" di ciascun post
+   const likeButton = postElement.querySelector(".like-button");
+   likeButton.addEventListener("click", handleLikeButtonClick);
+});
+
+
+
+

@@ -17,3 +17,12 @@ body{
     height: 100%;
     object-fit: cover;
 }
+
+button{
+    border: white;
+    background-color: white;
+}
+
+.liked {
+    color: red;
+}
