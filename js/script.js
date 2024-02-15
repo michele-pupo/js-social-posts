@@ -15,7 +15,7 @@ Milestone 1 - Creiamo il nostro array di oggetti che rappresentano ciascun post.
 Milestone 2 - Prendendo come riferimento il layout di esempio presente nell'html, 
               stampiamo i post del nostro feed.
 Milestone 3 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e 
-            incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+              incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 BONUS
  - Formattare le date in formato italiano (gg/mm/aaaa)
  - Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene 
@@ -84,7 +84,7 @@ const posts = [
 
 
 // creiamo un elemento html dove appendere ogni post
-const postsContainer = document.getElementById('posts-container');
+const postsContainer = document.getElementById("posts");
 
 // facciamo un ciclo "forEach" per ciclare ogni elemento dell'array
 posts.forEach(post => {
@@ -93,11 +93,13 @@ posts.forEach(post => {
 
   const content = `
 
-        <div id="post" class="col-4 bg-white p-3">
+    <div class="container-fluid d-flex flex-column align-items-center">
+  
+        <div id="post" class="col-8 bg-white p-3 mb-5">
             <div id="author" class="d-flex">
                 <div class="d-flex align-items-center">
                     <div id="img-author" class="col-2">
-                        <img src="${post.author.image || 'https://via.placeholder.com/300'}" alt="">
+                        <img src="${post.author.image}" alt="">
                     </div>
                     <div id="text-author" class="col-11 ms-3">
                         <h2 class="fw-bold fs-5 mb-0">${post.author.name}</h2>
@@ -118,8 +120,10 @@ posts.forEach(post => {
                 </div>
             </div>
         </div>
-    `;
+    </div>
+    
+  `;
 
     postElement.innerHTML = content;
-    postsContainer.appendChild(postElement);
+    postsContainer.append(postElement);
 })
