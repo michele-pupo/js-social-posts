@@ -81,3 +81,45 @@ const posts = [
       "created": "2021-03-05"
   }
 ];
+
+
+// creiamo un elemento html dove appendere ogni post
+const postsContainer = document.getElementById('posts-container');
+
+// facciamo un ciclo "forEach" per ciclare ogni elemento dell'array
+posts.forEach(post => {
+  const postElement = document.createElement("post");
+  postElement.classList.add("author");
+
+  const content = `
+
+        <div id="post" class="col-4 bg-white p-3">
+            <div id="author" class="d-flex">
+                <div class="d-flex align-items-center">
+                    <div id="img-author" class="col-2">
+                        <img src="${post.author.image || 'https://via.placeholder.com/300'}" alt="">
+                    </div>
+                    <div id="text-author" class="col-11 ms-3">
+                        <h2 class="fw-bold fs-5 mb-0">${post.author.name}</h2>
+                        <h3 class="fs-6">${post.created}</h3>
+                    </div>
+                </div>
+            </div>
+            <div id="post-body" class="mt-3">
+                <p>${post.content}</p>
+                <div id="img-post" class="col-12">
+                    <img src="${post.media}" alt="">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div id="liks" class="d-flex align-items-center col-8 justify-content-between mt-3">
+                    <h6><i class="fa-regular fa-thumbs-up"></i> Mi Piace</h6>
+                    <h6>Piace a <span class="fw-bold">${post.likes}</span> persone</h6>
+                </div>
+            </div>
+        </div>
+    `;
+
+    postElement.innerHTML = content;
+    postsContainer.appendChild(postElement);
+})
