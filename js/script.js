@@ -141,9 +141,22 @@ posts.forEach(post => {
   const postElement = document.createElement("div");
   postElement.classList.add("author");
 
+
   // formattiamo la data
   const formattedDate = formatDate(post.created);
+  
 
+  // controlliamo se l'immagine dell'autore è "null"
+  let authorImage;
+  if (post.author.image == null) {
+
+    // se l'immagine è null, estraiamo le iniziali dal nome
+    const initials = post.author.name.split(' ').map(word => word.charAt(0)).join('');
+    console.log(initials);
+
+    // // utilizziamo le iniziali del nome come testo dell'immagine dell'autore
+    // authorImage = `<h3>${initials}</h3>`;
+   } 
 
   const content = `
 
@@ -152,7 +165,7 @@ posts.forEach(post => {
             <div id="author" class="d-flex">
                 <div class="d-flex align-items-center">
                     <div id="img-author" class="col-2">
-                        <img src="${post.author.image}" alt="">
+                        <img id="" src="${post.author.image}" alt="">
                     </div>
                     <div id="text-author" class="col-11 ms-4">
                         <h2 class="fw-bold fs-5 mb-0">${post.author.name}</h2>
